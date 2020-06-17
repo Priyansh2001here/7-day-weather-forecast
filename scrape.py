@@ -1,4 +1,3 @@
-# cond wthr-ico s code30
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -12,9 +11,16 @@ soup = BeautifulSoup(page.content, "html.parser")
 find = soup.find(class_ = "main-temp")
 find_high_low = find.find(class_ = "temp-ctnt")
 find_curr = find.find_all_next(class_ = "currTemp")
+curr_loc = soup.find(class_ = "cptn-ctnt")
+loc_find = curr_loc.find(class_ = "txt")
+
+
+print("Your Location : " + str(loc_find.get_text()) + " " + str(curr_loc.find(class_ = "subTxt").get_text()))
 print("Today's Highest", find_high_low.find(class_ = "high").get_text())
 print("Today's Lowest", find_high_low.find(class_ = "low").get_text())
 print("Current Temp ->", find_curr[0].get_text())
+
+
 find = soup.find(class_ = "compWeatherSectionList vert small yui3-skin-sam bb-1 plr-10 mt-0")
 find = soup.find(class_ = "wcards")
 find_day = (find.find_all_next(class_ = "day"))
